@@ -17,6 +17,8 @@ namespace Database
                 options.UseSqlServer(configuration.GetConnectionString(DbHelper.ConnectionStringName)));
 
             serviceCollection.AddTransient<IModelRepository, ModelRepository>();
+            serviceCollection.AddTransient<ICarRepository, CarRepository>();
+            serviceCollection.AddTransient<IEmailSubscriberRepository, EmailSubscriberRepository>();
         }
     }
 }

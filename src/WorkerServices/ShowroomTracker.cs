@@ -13,13 +13,16 @@ namespace WorkerServices
         private readonly IShowroomSettings _settings;
         private readonly IModelSynchronizer _modelSynchronizer;
         private readonly ILogger<ShowroomTracker> _logger;
+        private readonly ICarSynchronizer _carSynchronizer;
 
         public ShowroomTracker(IShowroomSettings settings,
             IModelSynchronizer modelSynchronizer,
+            ICarSynchronizer carSynchronizer,
             ILogger<ShowroomTracker> logger)
         {
             _settings = settings;
             _modelSynchronizer = modelSynchronizer;
+            _carSynchronizer = carSynchronizer;
             _logger = logger;
         }
 
@@ -28,6 +31,8 @@ namespace WorkerServices
             while (!stoppingToken.IsCancellationRequested)
             {
                 await SyncModels();
+
+                await SyncCars();
 
                 try
                 {
@@ -49,6 +54,19 @@ namespace WorkerServices
             catch (Exception ex)
             {
                 _logger.LogError("Sync models exception: {0}", ex);
+            }
+        }
+
+
+        async Task SyncCars()
+        {
+            try
+            {
+                await _carSynchronizer.SyncCars();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Sync cars exception: {0}", ex);
             }
         }
     }

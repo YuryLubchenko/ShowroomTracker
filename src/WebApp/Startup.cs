@@ -64,6 +64,10 @@ namespace WebApp
             var showroomSettings = new ShowroomSettings();
             Configuration.Bind("ShowroomSettings", showroomSettings);
             services.AddSingleton<IShowroomSettings>(showroomSettings);
+
+            var emailNotifierSettings = new EmailNotifierSettings();
+            Configuration.Bind("EmailNotifierSettings", emailNotifierSettings);
+            services.AddSingleton<IEmailNotifierSettings>(emailNotifierSettings);
         }
 
         private static async Task PreStart(IServiceProvider services)
