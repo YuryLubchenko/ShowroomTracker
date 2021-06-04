@@ -12,5 +12,6 @@ namespace Database
         public DbSet<Model> Models { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<EmailSubscriber> EmailSubscribers { get; set; }
+        public DbSet<TelegramSubscriber> TelegramSubscribers { get; set; }
     }
 }

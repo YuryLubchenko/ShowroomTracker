@@ -19,6 +19,7 @@ namespace Database
             serviceCollection.AddTransient<IModelRepository, ModelRepository>();
             serviceCollection.AddTransient<ICarRepository, CarRepository>();
             serviceCollection.AddTransient<IEmailSubscriberRepository, EmailSubscriberRepository>();
+            serviceCollection.AddTransient<ITelegramSubscriberRepository, TelegramSubscriberRepository>();
         }
     }
 }

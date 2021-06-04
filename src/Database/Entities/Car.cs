@@ -13,6 +13,7 @@ namespace Database.Entities
 
         public Car(ICar car)
         {
+            CopyProperties(car);
         }
 
         [Key]

@@ -110,6 +110,24 @@ namespace Database.Migrations
 
                     b.ToTable("Models");
                 });
+
+            modelBuilder.Entity("Database.Entities.TelegramSubscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("ChatId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Disabled")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TelegramSubscribers");
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -30,10 +30,10 @@ namespace Database
             return config.GetConnectionString(DbHelper.ConnectionStringName);
         }
 
-        private static DbContextOptionsBuilder ConfigureDbContextOptionsBuilder(DbContextOptionsBuilder builder,
+        private static void ConfigureDbContextOptionsBuilder(DbContextOptionsBuilder builder,
             string connectionString)
         {
-            return builder
+            builder
                 .UseSqlServer(
                     connectionString,
                     b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));

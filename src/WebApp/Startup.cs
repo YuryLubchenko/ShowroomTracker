@@ -68,6 +68,10 @@ namespace WebApp
             var emailNotifierSettings = new EmailNotifierSettings();
             Configuration.Bind("EmailNotifierSettings", emailNotifierSettings);
             services.AddSingleton<IEmailNotifierSettings>(emailNotifierSettings);
+
+            var telegramNotifierSettings = new TelegramNotifierSettings();
+            Configuration.Bind("TelegramNotifierSettings", telegramNotifierSettings);
+            services.AddSingleton<ITelegramNotifierSettings>(telegramNotifierSettings);
         }
 
         private static async Task PreStart(IServiceProvider services)

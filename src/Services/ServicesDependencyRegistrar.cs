@@ -11,12 +11,15 @@ namespace Services
     {
         public static void RegisterServices(IServiceCollection serviceCollection)
         {
+            serviceCollection.AddSingleton<ITelegramClient, TelegramClient>();
+
             serviceCollection.AddHttpClient<IShowroomService, ShowroomService>();
             serviceCollection.AddTransient<IModelSynchronizer, ModelSynchronizer>();
             serviceCollection.AddTransient<ICarSynchronizer, CarSynchronizer>();
             serviceCollection.AddTransient<INotifier, EmailNotifier>();
             serviceCollection.AddTransient<IEmailNotifier, EmailNotifier>();
             serviceCollection.AddTransient<IEventPublisher, EventPublisher>();
+            serviceCollection.AddTransient<INotifier, TelegramNotifier>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -37,15 +38,19 @@ namespace Services.Notifiers
 
         public async Task Notify(IReadOnlyCollection<ICar> newCars)
         {
+            if (!newCars.Any())
+                return;
+
             var subscribers = await _repository.GetEnabled();
 
+            if (!subscribers.Any())
+                return;
 
-
-            var subject = "<h1>New cars available</h1>";
+            var subject = "New cars available";
 
             var sb = new StringBuilder();
 
-            sb.AppendLine("New Hyundai cars are available!");
+            sb.AppendLine("<h1>New Hyundai cars are available!</h1>");
 
             foreach (var car in newCars)
             {

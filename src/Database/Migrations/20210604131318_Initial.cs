@@ -60,6 +60,20 @@ namespace Database.Migrations
                 {
                     table.PrimaryKey("PK_Models", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "TelegramSubscribers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ChatId = table.Column<long>(type: "bigint", nullable: false),
+                    Disabled = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TelegramSubscribers", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -72,6 +86,9 @@ namespace Database.Migrations
 
             migrationBuilder.DropTable(
                 name: "Models");
+
+            migrationBuilder.DropTable(
+                name: "TelegramSubscribers");
         }
     }
 }
