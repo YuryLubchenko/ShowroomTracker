@@ -22,7 +22,7 @@ namespace Services.Entities.Domain
         public Car(ICar car)
         {
             Id = car.Id;
-            ExternalId = car.Id;
+            ExternalId = car.ExternalId;
             ModificationId = car.ModificationId;
             ComplectationId = car.ComplectationId;
             PackageId = car.PackageId;

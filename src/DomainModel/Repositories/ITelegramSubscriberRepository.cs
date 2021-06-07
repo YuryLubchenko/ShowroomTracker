@@ -12,7 +12,7 @@ namespace DomainModel.Repositories
 
         Task<ITelegramSubscriber> Add(ITelegramSubscriber subscriber);
 
-        Task<ITelegramSubscriber> Subscribe(long charId);
+        Task<ITelegramSubscriber> Subscribe(long chatId);
 
         Task<ITelegramSubscriber> Unsubscribe(long chatId);
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Database.Entities;
@@ -41,14 +42,54 @@ namespace Database.Repositories
             return s;
         }
 
-        public Task<ITelegramSubscriber> Subscribe(long charId)
+        public async Task<ITelegramSubscriber> Subscribe(long chatId)
         {
-            throw new System.NotImplementedException();
+            var context = _contextFactory.CreateDbContext();
+
+            var existingSubscription = await context.TelegramSubscribers.FirstOrDefaultAsync(x => x.ChatId == chatId);
+
+            if (existingSubscription == null)
+            {
+                var s = new TelegramSubscriber
+                {
+                    ChatId = chatId,
+                    CreatedOnUtc = DateTime.UtcNow
+                };
+
+                context.TelegramSubscribers.Add(s);
+
+                await context.SaveChangesAsync();
+
+                return s;
+            }
+
+            if (existingSubscription.Disabled)
+            {
+                existingSubscription.Disabled = false;
+
+                await context.SaveChangesAsync();
+
+                return existingSubscription;
+            }
+
+            return existingSubscription;
         }
 
-        public Task<ITelegramSubscriber> Unsubscribe(long chatId)
+        public async Task<ITelegramSubscriber> Unsubscribe(long chatId)
         {
-            throw new System.NotImplementedException();
+            var context = _contextFactory.CreateDbContext();
+
+            var existingSubscription = await context.TelegramSubscribers.FirstOrDefaultAsync(x => x.ChatId == chatId);
+
+            if (existingSubscription == null)
+                return null;
+
+            existingSubscription.Disabled = true;
+
+            await context.SaveChangesAsync();
+
+            return existingSubscription;
+
         }
     }
 }

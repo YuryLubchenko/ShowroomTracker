@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Database.Migrations
 {
@@ -67,6 +68,7 @@ namespace Database.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ChatId = table.Column<long>(type: "bigint", nullable: false),
                     Disabled = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -74,6 +76,11 @@ namespace Database.Migrations
                 {
                     table.PrimaryKey("PK_TelegramSubscribers", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramSubscribers_ChatId",
+                table: "TelegramSubscribers",
+                column: "ChatId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

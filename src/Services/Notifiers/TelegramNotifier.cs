@@ -34,7 +34,7 @@ namespace Services.Notifiers
 
             foreach (var newCar in newCars)
             {
-                sb.AppendLine($"Model: {newCar.ModelName}, price: {newCar.Price}");
+                sb.AppendLine($"Model: <a href=\"https://showroom.hyundai.ru/model/{newCar.ExternalId}\">{newCar.ModelName}</a>, price: {newCar.Price}");
             }
 
             foreach (var subscriber in subscribers)

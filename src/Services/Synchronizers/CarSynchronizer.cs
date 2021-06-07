@@ -44,6 +44,11 @@ namespace Services.Synchronizers
                 }
                 else
                 {
+                    if (existingCar.Deleted)
+                    {
+                        newCars.Add(existingCar);
+                    }
+
                     var c = new Car(remoteCar)
                     {
                         Id = existingCar.Id
@@ -57,7 +62,7 @@ namespace Services.Synchronizers
 
             var remoteIds = remoteCars.Select(x => x.ExternalId).ToList();
 
-            var missing = all.Where(x => !remoteIds.Contains(x.ExternalId)).ToList();
+            var missing = all.Where(x => !remoteIds.Contains(x.ExternalId) && !x.Deleted).ToList();
 
             await _carRepository.MarkAsDeleted(missing);
 

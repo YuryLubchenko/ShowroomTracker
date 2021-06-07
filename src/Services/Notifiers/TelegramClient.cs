@@ -65,7 +65,7 @@ namespace Services.Notifiers
             var messageText = e.Message.Text;
             var chatId = e.Message.Chat.Id;
 
-            _log.LogDebug($"TelegramClient: message from char {chatId} received: {messageText}");
+            _log.LogInformation($"TelegramClient: message from char {chatId} received: {messageText}");
 
             if (string.IsNullOrEmpty(messageText))
                 return;
@@ -83,7 +83,7 @@ namespace Services.Notifiers
 
         public async Task SendTextMessage(long chatId, string message)
         {
-            await _bot.SendTextMessageAsync(chatId, message);
+            await _bot.SendTextMessageAsync(chatId, message, ParseMode.Html);
         }
 
         private Task ProcessStartCommand(long chatId, string messageText)
